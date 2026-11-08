@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light" style="color-scheme: light;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>glryco</title>
+<meta name="description" content="glryco — fotoğraf galerisi">
+<meta property="og:title" content="glryco">
+<style>
+:root{--bg:#f4f1ec;--fg:#161512;--mut:#8a857c;--line:#dcd7cf;--card:#fff;--acc:#161512;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121110;--fg:#f1ede6;--mut:#8f8a80;--line:#2b2925;--card:#1b1a18;--acc:#f1ede6;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121110;--fg:#f1ede6;--mut:#8f8a80;--line:#2b2925;--card:#1b1a18;--acc:#f1ede6;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}
+.logo{font:600 22px Georgia,"Times New Roman",serif;letter-spacing:-.5px}
+.logo i{font-style:normal;color:var(--mut)}
+button{font:inherit;cursor:pointer;border:1px solid var(--fg);background:var(--fg);color:var(--bg);padding:9px 18px;border-radius:99px}
+button.ghost{background:none;color:var(--fg);border-color:var(--line)}
+.hero{max-width:720px;margin:0 auto;padding:44px 20px 30px;text-align:center}
+.av{width:92px;height:92px;border-radius:50%;margin:0 auto 14px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font:600 38px Georgia,serif;background-size:cover;background-position:center}
+.hero h1{margin:0;font:600 28px Georgia,serif;letter-spacing:-.5px}
+.hero .h{color:var(--mut);margin:2px 0 10px}
+.hero p{margin:0 auto 16px;max-width:420px}
+.stats{display:flex;justify-content:center;gap:28px;color:var(--mut);font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin-top:18px}
+.stats b{display:block;color:var(--fg);font:600 20px Georgia,serif;letter-spacing:0}
+main{max-width:1100px;margin:0 auto;padding:0 12px 60px}
+#grid{column-count:2;column-gap:12px}
+@media(min-width:760px){#grid{column-count:3}}
+.t{break-inside:avoid;margin:0 0 12px;position:relative;cursor:pointer;background:var(--card);overflow:hidden}
+.t img{display:block;width:100%;height:auto}
+.t span{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;color:#fff;font-size:12px;letter-spacing:.06em;background:linear-gradient(transparent,rgba(0,0,0,.55));opacity:0;transition:.2s}
+.t:hover span,.t:focus span{opacity:1}
+@media(hover:none){.t span{opacity:1}}
+.empty{text-align:center;color:var(--mut);padding:70px 20px}
+.ov{position:fixed;inset:0;background:rgba(10,10,9,.88);z-index:20;display:none;align-items:center;justify-content:center;padding:20px}
+.ov.on{display:flex}
+.box{background:var(--card);border-radius:14px;padding:22px;width:100%;max-width:400px;max-height:90vh;overflow:auto}
+.box h3{margin:0 0 14px;font:600 20px Georgia,serif}
+label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin:12px 0 5px}
+input[type=date],input[type=text],input[type=file]{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:inherit}
+.prev{width:100%;margin-top:10px;border-radius:8px;display:none}
+.row{display:flex;gap:10px;margin-top:18px}.row button{flex:1}
+#lb{flex-direction:column;gap:14px;color:#fff;text-align:center}
+#lb img{max-width:100%;max-height:68vh;object-fit:contain}
+#lb .d{font:600 18px Georgia,serif}#lb .c{opacity:.75;max-width:420px}
+#lb .x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:16px;background:none;border:0;color:#fff;font-size:30px;padding:0}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:11px 18px;border-radius:99px;z-index:40;font-size:14px;max-width:90%;text-align:center}
+.act{display:flex;align-items:center;gap:16px;justify-content:center}.act svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.8}#bm{background:none;border:0;padding:4px}#bm.on svg{fill:#fff}#ll{font-weight:600}#le{display:none;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}#le input{width:110px;padding:8px;border-radius:8px;border:1px solid #888;background:#222;color:#fff;font:inherit}.mini{padding:6px 14px;font-size:13px}
+body.noadm #own,body.noadm #edp,body.noadm #lbtn,body.noadm #del{display:none}#own{display:flex;gap:8px;align-items:center}#exp.hot{background:var(--fg);color:var(--bg)}
+footer{text-align:center;color:var(--mut);font-size:12px;padding:30px;letter-spacing:.1em}
+</style>
+</head>
+<body class="noadm">
+<header>
+  <div class="logo">glryco<i>.</i></div>
+  <div id="own"><button id="exp" class="ghost mini" type="button">Yayına hazırla</button><button id="add" type="button">+ Fotoğraf</button></div>
+</header>
+<section class="hero">
+  <div class="av" id="av">Y</div>
+  <h1 id="nm">Yasin Polat</h1>
+  <div class="h" id="hd">@glryco/yasinpolat</div>
+  <p id="bio">Güzel günleri sadece ona inananlar görür</p>
+  <button class="ghost" id="edp" type="button">Profili düzenle</button>
+  <div class="stats"><div><b id="cnt">0</b>Fotoğraf</div><div><b id="yrs">–</b>Yıl aralığı</div></div>
+</section>
+<main><div id="grid"></div><div class="empty" id="emp" style="display: block;">Henüz fotoğraf yok.</div></main>
+<footer>© GLRYCO</footer>
+
+<div class="ov" id="up"><div class="box">
+  <h3>Yeni fotoğraf</h3>
+  <label>Fotoğraf</label><input type="file" id="f" accept="image/*">
+  <img class="prev" id="pv" alt="">
+  <label>Yükleme tarihi</label><input type="date" id="dt">
+  <label>Açıklama (isteğe bağlı)</label><input type="text" id="cp" maxlength="120">
+  <label>Beğeni sayısı (isteğe bağlı)</label><input type="text" id="lk" inputmode="numeric" placeholder="örn. 213">
+  <label>Kaydetme sayısı (isteğe bağlı)</label><input type="text" id="sk" inputmode="numeric" placeholder="örn. 12">
+  <label>İletme sayısı (isteğe bağlı)</label><input type="text" id="hk" inputmode="numeric" placeholder="örn. 5">
+  <div class="row"><button class="ghost" id="cx">Vazgeç</button><button id="sv">Yayınla</button></div>
+</div></div>
+<div class="ov" id="pr"><div class="box"><h3>Profili düzenle</h3>
+  <label>Profil fotoğrafı</label><input type="file" id="pa" accept="image/*">
+  <label>Ad</label><input type="text" id="pn" maxlength="40">
+  <label>Kullanıcı adı</label><input type="text" id="ph" maxlength="30">
+  <label>Biyografi</label><input type="text" id="pb" maxlength="140">
+  <div class="row"><button class="ghost" id="pc" type="button">Vazgeç</button><button id="ps" type="button">Kaydet</button></div>
+</div></div>
+<div class="ov" id="lb"><button class="x" id="lx">×</button><img id="li" alt=""><div class="d" id="ld"></div><div class="c" id="lc"></div>
+<div class="act"><svg style="width:24px;height:24px;fill:#fff;stroke:none" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 4.8 6.2 4.8c2 0 3.4 1 4.2 2.3h3.2c.8-1.3 2.2-2.3 4.2-2.3 3.5 0 5.3 3.6 3.8 7C19.5 16.4 12 21 12 21z"></path></svg><span id="ll"></span><button id="bm" type="button" aria-label="Kaydet"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.5L6 21z"></path></svg></button></div>
+<div id="le" style=""><input type="text" id="ln" inputmode="numeric" placeholder="Beğeni"><input type="text" id="ls" inputmode="numeric" placeholder="Kaydetme"><input type="text" id="lh" inputmode="numeric" placeholder="İletme"><button class="mini" id="lsv" type="button">Kaydet</button></div>
+<button class="ghost mini" id="lbtn" type="button" style="color:#fff;border-color:#888">Sayıları değiştir</button><button class="ghost" id="del" type="button" style="color:#fff;border-color:#888">Sil</button></div>
+
+<script id="state" type="application/json">{"profile":{"name":"Yasin Polat","handle":"glryco/yasinpolat","bio":"Güzel günleri sadece ona inananlar görür"},"photos":[]}</script>
+<script>
+(function(){
+var S=JSON.parse(document.getElementById('state').textContent);
+var $=function(i){return document.getElementById(i)};
+var cur=null,data=null,armed=false,busy=false,pav=null;
+function f(n){return Number(n).toLocaleString('tr-TR')}
+function N(i){var v=$(i).value.replace(/\D/g,'');return v===''?null:parseInt(v,10)}
+function toast(m){var o=document.querySelector('.toast');if(o)o.remove();var t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},3500)}
+function fmt(d){var p=d.split('-');return p[2]+'.'+p[1]+'.'+p[0]}
+function render(){
+  var p=S.profile;$('nm').textContent=p.name;$('hd').textContent='@'+p.handle;$('bio').textContent=p.bio;
+  if(p.avatar){$('av').style.backgroundImage='url('+p.avatar+')';$('av').textContent=''}else{$('av').style.backgroundImage='';$('av').textContent=(p.name||'g').charAt(0).toUpperCase()}
+  var ph=S.photos.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0});
+  var g=$('grid');g.textContent='';
+  ph.forEach(function(x){
+    var t=document.createElement('div');t.className='t';t.tabIndex=0;
+    var im=new Image();im.src=x.src;im.alt=x.cap||'';
+    var s=document.createElement('span');s.textContent=fmt(x.date)+(x.likes!=null?'   ♥ '+f(x.likes):'')+(x.saves!=null?'  ▫ '+f(x.saves):'')+(x.shares!=null?'  ➤ '+f(x.shares):'');
+    t.appendChild(im);t.appendChild(s);t.onclick=function(){openLb(x)};g.appendChild(t);
+  });
+  $('emp').style.display=ph.length?'none':'block';
+  $('cnt').textContent=ph.length;
+  if(ph.length){var a=ph[ph.length-1].date.slice(0,4),b=ph[0].date.slice(0,4);$('yrs').textContent=a===b?a:a+'–'+b}
+}
+function openLb(x){cur=x;armed=false;$('del').textContent='Sil';$('li').src=x.src;$('ld').textContent=fmt(x.date);$('lc').textContent=x.cap||'';$('le').style.display='none';$('ll').textContent=[x.likes!=null?f(x.likes)+' beğeni':'',x.saves!=null?f(x.saves)+' kaydetme':'',x.shares!=null?f(x.shares)+' iletme':''].filter(Boolean).join(' · ');$('bm').className=saved(x.id)?'on':'';$('lb').classList.add('on')}
+function saved(id){try{return (JSON.parse(localStorage.getItem('glr_saved')||'[]')).indexOf(id)>-1}catch(e){return false}}
+$('bm').onclick=function(){if(!cur)return;try{var a=JSON.parse(localStorage.getItem('glr_saved')||'[]'),i=a.indexOf(cur.id);if(i>-1)a.splice(i,1);else a.push(cur.id);localStorage.setItem('glr_saved',JSON.stringify(a));this.className=i>-1?'':'on';toast(i>-1?'Kayıttan çıkarıldı':'Kaydedildi')}catch(e){this.className=this.className?'':'on'}};
+$('lbtn').onclick=function(){if(!cur)return;$('ln').value=cur.likes!=null?cur.likes:'';$('ls').value=cur.saves!=null?cur.saves:'';$('lh').value=cur.shares!=null?cur.shares:'';$('le').style.display='flex'};
+$('lsv').onclick=function(){var x=cur;if(!x)return;need(function(a){var o={l:x.likes,s:x.saves,h:x.shares};x.likes=N('ln');x.saves=N('ls');x.shares=N('lh');$('lb').classList.remove('on');render();pub(a,function(){x.likes=o.l;x.saves=o.s;x.shares=o.h})})};
+$('lx').onclick=function(){$('lb').classList.remove('on')};
+$('lb').onclick=function(e){if(e.target===this)this.classList.remove('on')};
+function html(){
+  var c=document.documentElement.cloneNode(true);
+  c.querySelector('#state').textContent=JSON.stringify(S).replace(/</g,'\\u003c');
+  c.querySelector('#grid').textContent='';
+  c.querySelectorAll('.ov').forEach(function(n){n.classList.remove('on')});
+  c.querySelectorAll('.toast').forEach(function(n){n.remove()});
+  c.querySelector('body').removeAttribute('style');c.querySelector('body').className='noadm';c.querySelector('#exp').classList.remove('hot');c.removeAttribute('data-theme');c.removeAttribute('style');c.querySelector('#le').setAttribute('style','');
+  c.querySelector('#li').removeAttribute('src');c.querySelector('#pv').removeAttribute('src');
+  return '<!DOCTYPE html>\n'+c.outerHTML;
+}
+function pub(a,undo){S.rev=(S.rev||0)+1;idbSet(S);render();$('exp').classList.add('hot');toast('Taslak kaydedildi. Yayına almak için “Yayına hazırla”ya bas.')}
+function need(fn){fn(null)}
+$('add').onclick=function(){
+  $('dt').value=new Date().toISOString().slice(0,10);$('f').value='';$('cp').value='';$('lk').value='';$('sk').value='';$('hk').value='';$('pv').style.display='none';data=null;$('up').classList.add('on');
+};
+$('cx').onclick=function(){$('up').classList.remove('on')};
+$('f').onchange=function(){
+  var f=this.files[0];if(!f)return;
+  var r=new FileReader();r.onload=function(){
+    var im=new Image();im.onload=function(){
+      var k=Math.min(1,1400/Math.max(im.width,im.height)),c=document.createElement('canvas');
+      c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+      c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+      data=c.toDataURL('image/jpeg',.8);$('pv').src=data;$('pv').style.display='block';
+    };im.onerror=function(){toast('Bu dosya okunamadı.')};im.src=r.result;
+  };r.readAsDataURL(f);
+};
+$('sv').onclick=function(){
+  if(!data){toast('Önce bir fotoğraf seç.');return}
+  if(!$('dt').value){toast('Bir tarih seç.');return}
+  need(function(a){
+    var p={id:Date.now().toString(36),src:data,date:$('dt').value,cap:$('cp').value.trim(),likes:N('lk'),saves:N('sk'),shares:N('hk')};
+    S.photos.push(p);
+    if(JSON.stringify(S).length>14e6){S.photos.pop();toast('Boyut sınırı doldu (16 MB). Eski fotoğraf sil.');return}
+    $('up').classList.remove('on');pub(a,function(){S.photos.pop()});
+  });
+};
+$('del').onclick=function(){
+  if(!cur)return;
+  if(!armed){armed=true;this.textContent='Emin misin? Tekrar dokun';return}
+  var x=cur,old=S.photos;
+  need(function(a){S.photos=old.filter(function(p){return p.id!==x.id});$('lb').classList.remove('on');pub(a,function(){S.photos=old})});
+};
+$('edp').onclick=function(){$('pn').value=S.profile.name;$('ph').value=S.profile.handle;$('pb').value=S.profile.bio;pav=null;$('pa').value='';$('pr').classList.add('on')};
+$('pc').onclick=function(){$('pr').classList.remove('on')};
+$('pa').onchange=function(){var fl=this.files[0];if(!fl)return;var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var s=Math.min(im.width,im.height),c=document.createElement('canvas');c.width=c.height=400;c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,400,400);pav=c.toDataURL('image/jpeg',.85);toast('Profil fotoğrafı hazır, Kaydet’e bas.')};im.onerror=function(){toast('Bu dosya okunamadı.')};im.src=r.result};r.readAsDataURL(fl)};
+$('ps').onclick=function(){
+  need(function(a){
+    var old=S.profile;
+    S.profile={name:$('pn').value.trim()||old.name,handle:$('ph').value.trim().replace(/^@/,'')||old.handle,bio:$('pb').value.trim(),avatar:pav||old.avatar};
+    $('pr').classList.remove('on');render();pub(a,function(){S.profile=old});
+  });
+};
+var admin=false;
+try{if(location.hash==='#admin')localStorage.setItem('glr_admin','1');admin=localStorage.getItem('glr_admin')==='1'}catch(e){admin=location.hash==='#admin'}
+function idb(cb){try{var r=indexedDB.open('glr',1);r.onupgradeneeded=function(){r.result.createObjectStore('k')};r.onsuccess=function(){cb(r.result)};r.onerror=function(){cb(null)}}catch(e){cb(null)}}
+function idbSet(v){idb(function(d){if(d)try{d.transaction('k','readwrite').objectStore('k').put(v,'draft')}catch(e){}})}
+function idbGet(cb){idb(function(d){if(!d)return cb(null);try{var q=d.transaction('k').objectStore('k').get('draft');q.onsuccess=function(){cb(q.result)};q.onerror=function(){cb(null)}}catch(e){cb(null)}})}
+$('exp').onclick=function(){var h=html(),b=new Blob([h],{type:'text/html'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='index.html';document.body.appendChild(a);a.click();a.remove();$('exp').classList.remove('hot');toast('index.html indirildi. Hosting’e bu dosyayı yükle.')};
+if(admin){document.body.classList.remove('noadm');idbGet(function(d){if(d&&d.photos&&(d.rev||0)>=(S.rev||0))S=d;render()})}else render();
+})();
+</script>
+
+
+</body></html>
